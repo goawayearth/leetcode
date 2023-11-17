@@ -7,6 +7,7 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <unordered_set>
 using std::cin;
 using std::cout;
 using std::endl;
