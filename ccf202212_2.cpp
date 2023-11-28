@@ -40,16 +40,19 @@ int main(){
                 //说明每受到前面的印象
                 ans2[i] = n - second[i] + 1;
             }
-                if(first[i] != 0){
-                    //管着后面
-                    int tem = ans2[i]-second[first[i]];
-                    if(ans2[first[i]] == 0){
-                        ans2[first[i]] = tem;
-                    }
-                    else{
-                        if(tem<ans2[first[i]])ans2[first[i]] = tem;
+
+            if(first[i] != 0){
+                //管着后面
+                int tem = ans2[i]-second[first[i]-1];
+                if(ans2[first[i]-1] == 0){
+                    ans2[first[i]-1] = tem;
+                }
+                else{
+                    if(tem<ans2[first[i]-1]){
+                        ans2[first[i]-1] = tem;
                     }
                 }
+            }
 
             
         }
@@ -63,9 +66,9 @@ int main(){
 
     if(flag == 0){
         for(int i=0;i<m;i++){
-        cout<<ans2[i]<<" ";
-    }
-    cout<<endl;
+            cout<<ans2[i]<<" ";
+        }
+        cout<<endl;
     }
 
 
