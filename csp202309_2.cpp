@@ -1,61 +1,37 @@
-/*************************************************************************
-        > File Name: csp202309_2.cpp
-        > Author: tml
-        > Mail: 3200035928@qq.com
-        > Created Time: 2023年11月18日 星期六 10时24分20秒
- ************************************************************************/
-#include <vector>
-#include <math.h>
-#include <iostream>
-#include <stdio.h>
-using std::cin;
-using std::cout;
-using std::endl;
+#include <bits/stdc++.h>
+
 using namespace std;
-
-typedef struct Node{
-    int type;
-    double ope;
-}Node;
-
-typedef struct Point{
-    int start;
-    int end;
-    double x;
-    double y;
-}Point;
-
-
-int main(){
     int n,m;
-    //输入m,n
+  vector<double>sumop1(100005,1);
+    vector<double>sumop2(100005);
+int main(){
+
     cin>>n>>m;
-    vector<Node> operat(n);
-    vector<Point> points(m);
-    for(int i=0;i<n;i++){
-        scanf("%d %lf",&operat[i].type,&operat[i].ope);
-    }
-    for(int i=0;i<m;i++){
-        scanf("%d %d %lf %lf",&points[i].start,&points[i].end,&points[i].x,&points[i].y);
-    }
-    for(int i=0;i<m;i++){
-        for(int j=points[i].start-1;j<=points[i].end-1;j++){
-            int type = operat[j].type;
-            double ope = operat[j].ope;
-            if(type == 1){
-                points[i].x = ope * points[i].x;
-                points[i].y = ope * points[i].y;
-            }
-            else if(type == 2){
-                double x = points[i].x;
-                double y = points[i].y;
-                points[i].x = cos(ope) * x - sin(ope) * y;
-                points[i].y = sin(ope) * x + cos(ope) * y;
-            }
+
+ 
+    for(int i=1;i<=n;i++){
+        int type;
+        double ope;
+
+        cin>>type>>ope;
+        if(type == 1){
+            sumop1[i] = sumop1[i-1] * ope;
+            sumop2[i] = sumop2[i-1];
+        }
+        else{
+            sumop1[i] = sumop1[i-1];
+            sumop2[i] = sumop2[i-1] + ope;
         }
     }
     for(int i=0;i<m;i++){
-        printf("%f %f\n",points[i].x,points[i].y);
+        int start,end;
+        double x,y;
+        cin>>start>>end>>x>>y;
+        double time = sumop1[end]/sumop1[start-1];
+        double theta = sumop2[end]-sumop2[start-1];
+        cout<<fixed<<setprecision(3)<<(x*cos(theta)-y*sin(theta))*time<<" "<<(x*sin(theta)+y*cos(theta))*time<<endl;
     }
+    return 0;
 }
+
 
